@@ -81,14 +81,14 @@ def recommend_by_text(query, text_embeddings, titles, paths, categories, top_k=5
     return [(paths[i], categories[i], titles[i], sims[i]) for i in top_idx]
 
 def load_image_safe(img_path):
-    """Load image safely, return placeholder if not found"""
     img_path = Path(img_path)
     if not img_path.exists():
-        img_path = Path.cwd() / img_path
+        img_path = Path.cwd() / img_path  # try relative to project root
     try:
         return Image.open(img_path).convert("RGB")
     except Exception:
-        return Image.new("RGB", (224,224), color="gray")
+        return Image.new("RGB", (224, 224), color="gray")
+
 
 # ------------------------------
 # Display results
